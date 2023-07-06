@@ -1,0 +1,8 @@
+*.tok
+*.vs
+visualization/~AnalyticsHis__14124.twbr
+smd_dev_SSIS/smd_dev/Project.params
+smd_dev_SSIS/smd_dev/smd_dev.dtproj
+smd_dev_SSIS/smd_dev/smd_dev.dtproj.user
+smd_dev_SSIS/smd_dev/obj/Development/*
+smd_dev_SSIS/smd_dev/bin/Development*

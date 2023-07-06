@@ -1,0 +1,1771 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/6/2023 10:00:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="EACD-EACD2"
+  DTS:CreatorName="EACD-EACD2\Admin"
+  DTS:DTSID="{9F877C61-8ADF-4E88-9032-4454DDD7B33D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5035.3"
+  DTS:LocaleID="14345"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{2BDE2C24-FE29-4DA7-945B-EE0AEC51D552}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CCA834B0-E1A2-4870-B969-BC73BD0F3B84}"
+      DTS:ObjectName="EACD-EACD2\MSSQLSERVER2022.smb_dev">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=EACD-EACD2\MSSQLSERVER2022;Initial Catalog=smb_dev;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{CCA834B0-E1A2-4870-B969-BC73BD0F3B84}EACD-EACD2\MSSQLSERVER2022.smb_dev;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Google Sheets Connection Manager]"
+      DTS:CreationName="Google Sheets (KingswaySoft)"
+      DTS:DTSID="{FB9FD056-968B-44E8-A36B-B8469C68E32B}"
+      DTS:ObjectName="Google Sheets Connection Manager">
+      <DTS:ObjectData>
+        <ConnectionManager
+          ConnectionString="AccountId=;SpreadsheetId=11kQci4IgDsSDujaE18dguuW7br-Swcr7TY8NnoSvybk;ProxyMode=NoProxy;ProxyUsername=;ProxyServer=;ProxyServerPort=0;PathToTokenFile=&quot;D:\other\SUMBAWA\Google Sheets_OAuthTokens.tok&quot;;PathToJsonPrivateKeyFile=;ServiceTimeout=120;ApiThrottleRate=10;ThrottleRateUnit=PerSecond;RetryOnIntermittentErrors=True;AppType=MyOwn;AuthMode=AuthorizationCode;ServiceAccount=;CertificateThumbprint=;CertificateLocation=Store;CertificateFilePath="
+          ConnectByProxy="False">
+          <TokenFilePassword
+            Sensitive="1" xmlns="www.microsoft.com/SqlServer/Dts"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiNb21A9/QEm64I2CZYBoxQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABBWgV55sEO5RpJ5z96fxsXY0k4FSJa0mUsZE4a7aTrEwAAAAAOgAAAAAIAACAAAAC8n5wbV5mBLn6sGinD3FtRO38QB4zwsmcSg/andUPxeSAAAADs3J9QePDRVR5ljMUvLnKJIJEgSoI38QpfWyAov9YJwEAAAABqJDw5XT/nuKhP1JJWhzL5MIrsDBbu/9ZaKrN+NDZS9hpAzfPAZe85X1Com0UVdarlo0xjMi+ZIWxWbuJR/cGD</TokenFilePassword>
+        </ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\FactHis"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{FEE4EA15-CF97-4500-A37B-5E3A9BD04D32}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FactHis"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\FactHis\DimTraining"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="DimTraining"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimTraining]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimTraining]) [refTable]
+where [refTable].[Title] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TrainingId" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Title" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[TrainingTitle]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\FactHis\DimTraining.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                  connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\FactHis\DimTraining.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\FactHis\DimTraining.Inputs[Lookup Input].Columns[TrainingTitle]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TrainingTitle"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[TrainingTitle]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Title</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\FactHis\DimTraining.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\FactHis\DimTraining.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[TrainingId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="10"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[TrainingId]"
+                      name="TrainingId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">TrainingId</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[Title]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="100"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[Title]"
+                      name="Title"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Title</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[HisId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[HisId]"
+                      name="HisId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\FactHis\DimTraining.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\FactHis\DimTraining.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\FactHis\DimTraining.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\FactHis\DimTraining.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactHis\DimTraining.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\FactHis\DimTraining.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\FactHis\Employee"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Employee"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEmployee]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEmployee]) [refTable]
+where [refTable].[EmployeeId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EmployeeId" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FullName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BirthDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Address" dataType="DT_WSTR" length="500" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[EmployeeId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\FactHis\Employee.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                  connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\FactHis\Employee.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\FactHis\Employee.Inputs[Lookup Input].Columns[EmployeeId]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="EmployeeId"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[EmployeeId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">EmployeeId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\FactHis\Employee.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\FactHis\Employee.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactHis\Employee.Outputs[Lookup Match Output].Columns[FullName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="100"
+                      lineageId="Package\FactHis\Employee.Outputs[Lookup Match Output].Columns[FullName]"
+                      name="FullName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">FullName</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\FactHis\Employee.Outputs[Lookup Match Output].Columns[BirthDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="10"
+                      lineageId="Package\FactHis\Employee.Outputs[Lookup Match Output].Columns[BirthDate]"
+                      name="BirthDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BirthDate</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\FactHis\Employee.Outputs[Lookup Match Output].Columns[Address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="500"
+                      lineageId="Package\FactHis\Employee.Outputs[Lookup Match Output].Columns[Address]"
+                      name="Address"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Address</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\FactHis\Employee.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\FactHis\Employee.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\FactHis\Employee.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\FactHis\Employee.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactHis\Employee.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\FactHis\Employee.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\FactHis\Employee.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\FactHis\Employee.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\FactHis\FactHis"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="FactHis"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[FactHis]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\FactHis\FactHis.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                  connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].Columns[EmployeeId]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="EmployeeId"
+                      externalMetadataColumnId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeId]"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[EmployeeId]" />
+                    <inputColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].Columns[DateComplete]"
+                      cachedDataType="date"
+                      cachedName="DateComplete"
+                      externalMetadataColumnId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[DateComplete]"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[DateComplete]" />
+                    <inputColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].Columns[TrainingId]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TrainingId"
+                      externalMetadataColumnId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[TrainingId]"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[TrainingId]" />
+                    <inputColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].Columns[HisId]"
+                      cachedDataType="i4"
+                      cachedName="HisId"
+                      externalMetadataColumnId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[IdHis]"
+                      lineageId="Package\FactHis\DimTraining.Outputs[Lookup Match Output].Columns[HisId]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[IdHis]"
+                      dataType="wstr"
+                      length="255"
+                      name="IdHis" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeId]"
+                      dataType="wstr"
+                      length="255"
+                      name="EmployeeId" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[TrainingId]"
+                      dataType="wstr"
+                      length="10"
+                      name="TrainingId" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input].ExternalColumns[DateComplete]"
+                      dataType="dbTimeStamp"
+                      name="DateComplete" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\FactHis\FactHis.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactHis\FactHis.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\FactHis\FactHis.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\FactHis\FactHis.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\FactHis\FactHis.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\FactHis\HistoricalTraining"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright (c) 2021 KingswaySoft Inc."
+              description="Extract data from Google Sheets."
+              name="HistoricalTraining"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the Worksheet to read from the Excel file."
+                  expressionType="Notify"
+                  name="WorkSheetName">His_Train</property>
+                <property
+                  dataType="System.String"
+                  description="The name of the range to read from the Excel file."
+                  expressionType="Notify"
+                  name="RangeName"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Start row number."
+                  expressionType="Notify"
+                  name="StartRow">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Number of rows to read."
+                  expressionType="Notify"
+                  name="NumberOfRows">-1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify if and where the column names are in the Excel file."
+                  expressionType="Notify"
+                  name="ColumnNamesLocation"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.GoogleServices.ColumnNamesLocation">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates which dimension an operation should apply to, Rows or Columns"
+                  expressionType="Notify"
+                  name="MajorDimension"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.GoogleServices.MajorDimension">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how values should be rendered in the the output."
+                  expressionType="Notify"
+                  name="ValueRenderOption"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.GoogleServices.ValueRenderOption">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines how dates should be rendered in the the output."
+                  expressionType="Notify"
+                  name="DateTimeRenderOption"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.GoogleServices.DateTimeRenderOption">1</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.ProductivityPack.GoogleSheetsSourceComponent</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\FactHis\HistoricalTraining.Connections[Google Sheets (KingswaySoft)]"
+                  connectionManagerID="Package.ConnectionManagers[Google Sheets Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Google Sheets Connection Manager]"
+                  description="Connection Manager for Google Sheets."
+                  name="Google Sheets (KingswaySoft)" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\FactHis\HistoricalTraining.Outputs[Default Output]"
+                  name="Default Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[Id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[Id]"
+                      length="255"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[EmployeeId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[EmployeeId]"
+                      length="255"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[EmployeeId]"
+                      name="EmployeeId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[TrainingTitle]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[TrainingTitle]"
+                      length="255"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[TrainingTitle]"
+                      name="TrainingTitle"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[DateComplete]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[DateComplete]"
+                      lineageId="Package\FactHis\HistoricalTraining.Outputs[Default Output].Columns[DateComplete]"
+                      name="DateComplete"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[Id]"
+                      dataType="wstr"
+                      length="255"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[EmployeeId]"
+                      dataType="wstr"
+                      length="255"
+                      name="EmployeeId" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[TrainingTitle]"
+                      dataType="wstr"
+                      length="255"
+                      name="TrainingTitle" />
+                    <externalMetadataColumn
+                      refId="Package\FactHis\HistoricalTraining.Outputs[Default Output].ExternalColumns[DateComplete]"
+                      dataType="date"
+                      name="DateComplete" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\FactHis.Paths[Default Output]"
+              endId="Package\FactHis\Employee.Inputs[Lookup Input]"
+              name="Default Output"
+              startId="Package\FactHis\HistoricalTraining.Outputs[Default Output]" />
+            <path
+              refId="Package\FactHis.Paths[Lookup Match Output1]"
+              endId="Package\FactHis\FactHis.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\FactHis\DimTraining.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\FactHis.Paths[Lookup Match Output]"
+              endId="Package\FactHis\DimTraining.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\FactHis\Employee.Outputs[Lookup Match Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{310807FC-5ADE-46C7-A615-25E895AB28FB}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\DimEmployee"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{75EA39C9-3835-40C5-A8CB-5847CE882460}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DimEmployee"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\DimEmployee\DimEmployee"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="DimEmployee"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[DimEmployee]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DimEmployee\DimEmployee.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].Columns[EmployeeId]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="EmployeeId"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeId]"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[EmployeeId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].Columns[FullName]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="FullName"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[FullName]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].Columns[BirthDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="BirthDate"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[BirthDate]"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[BirthDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].Columns[Address]"
+                          cachedDataType="wstr"
+                          cachedLength="500"
+                          cachedName="Address"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[Address]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          dataType="i4"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeId]"
+                          dataType="wstr"
+                          length="10"
+                          name="EmployeeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                          dataType="wstr"
+                          length="100"
+                          name="FullName" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[BirthDate]"
+                          dataType="wstr"
+                          length="10"
+                          name="BirthDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                          dataType="wstr"
+                          length="500"
+                          name="Address" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DimEmployee\DimEmployee.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimEmployee\DimEmployee.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\DimEmployee.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimEmployee\DimEmployee.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\DimEmployee\Employee"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Employee"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Employee]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DimEmployee\Employee.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[Id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[EmployeeId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[EmployeeId]"
+                          length="10"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[EmployeeId]"
+                          name="EmployeeId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[FullName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                          length="100"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[FullName]"
+                          name="FullName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[BirthDate]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[BirthDate]"
+                          length="10"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[BirthDate]"
+                          name="BirthDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[Address]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                          length="500"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].Columns[Address]"
+                          name="Address"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                          dataType="i4"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[EmployeeId]"
+                          dataType="wstr"
+                          length="10"
+                          name="EmployeeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                          dataType="wstr"
+                          length="100"
+                          name="FullName" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[BirthDate]"
+                          dataType="wstr"
+                          length="10"
+                          name="BirthDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                          dataType="wstr"
+                          length="500"
+                          name="Address" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[Id]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[EmployeeId]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[EmployeeId]"
+                          name="EmployeeId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                          dataType="wstr"
+                          length="100"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                          name="FullName" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[BirthDate]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[BirthDate]"
+                          name="BirthDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[Address]"
+                          dataType="wstr"
+                          length="500"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[Address]"
+                          name="Address" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\DimEmployee.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\DimEmployee\DimEmployee.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\DimEmployee\Employee.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\DimTraining"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{ECFEA5AB-130F-442B-9267-E95402B6D0D4}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DimTraining"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\DimTraining\DimTraining"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="DimTraining"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[DimTraining]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DimTraining\DimTraining.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].Columns[TrainingId]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="TrainingId"
+                          externalMetadataColumnId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].ExternalColumns[TrainingId]"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[TrainingId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].Columns[Title]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Title"
+                          externalMetadataColumnId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[Title]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          dataType="i4"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].ExternalColumns[TrainingId]"
+                          dataType="wstr"
+                          length="10"
+                          name="TrainingId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                          dataType="wstr"
+                          length="100"
+                          name="Title" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DimTraining\DimTraining.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimTraining\DimTraining.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\DimTraining.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimTraining\DimTraining.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\DimTraining\Training"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Training"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Training]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DimTraining\Training.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      connectionManagerRefId="Package.ConnectionManagers[EACD-EACD2\MSSQLSERVER2022.smb_dev]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[Id]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[TrainingId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].ExternalColumns[TrainingId]"
+                          length="10"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[TrainingId]"
+                          name="TrainingId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[Title]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                          length="100"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].Columns[Title]"
+                          name="Title"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                          dataType="i4"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].ExternalColumns[TrainingId]"
+                          dataType="wstr"
+                          length="10"
+                          name="TrainingId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                          dataType="wstr"
+                          length="100"
+                          name="Title" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[Id]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[Id]"
+                          name="Id" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[TrainingId]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[TrainingId]"
+                          name="TrainingId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[Title]"
+                          dataType="wstr"
+                          length="100"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[Title]"
+                          name="Title" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\DimTraining.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\DimTraining\DimTraining.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\DimTraining\Training.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1CDA5A10-8471-4A0F-8418-961CE692FFE2}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\FactHis" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="112.8,41.6"
+          Id="Package\FactHis"
+          TopLeft="303.095243256919,192.833336037748" />
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\Sequence Container\DimEmployee"
+          TopLeft="10.7428584565925,12.4470603893374" />
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\Sequence Container\DimTraining"
+          TopLeft="172.885718360726,13.2117662824149" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="322.4,69.6"
+          Size="322.4,112.8"
+          Id="Package\Sequence Container"
+          TopLeft="198.323798701715,23.9745100952762" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="359.509520979317,136.774510095276">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.0588259424717"
+              Start="0,0"
+              End="0,48.5588259424717">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5588259424717" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\FactHis">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="124,41.6"
+          Id="Package\FactHis\Employee"
+          TopLeft="384.285714383028,186.371427112868" />
+        <NodeLayout
+          Size="112.8,41.6"
+          Id="Package\FactHis\FactHis"
+          TopLeft="392.857142954456,345.598318008592" />
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\FactHis\DimTraining"
+          TopLeft="382.142857240171,272.026889437163" />
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\FactHis\HistoricalTraining"
+          TopLeft="365.71428572645,100.243698594362" />
+        <EdgeLayout
+          Id="Package\FactHis.Paths[Lookup Match Output1]"
+          TopLeft="449.500000097313,313.626889437163">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.9714285714286"
+              Start="0,0"
+              End="0,24.4714285714286">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.4714285714286" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.43102678571429,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactHis.Paths[Lookup Match Output]"
+          TopLeft="448.0142858116,227.971427112868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.0554623242948"
+              Start="0,0"
+              End="0,36.5554623242948">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5554623242948" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,12.4730436621474,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactHis.Paths[Default Output]"
+          TopLeft="446.000000054739,141.843698594362">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.5277285185063"
+              Start="0,0"
+              End="0,37.0277285185063">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.0277285185063" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\FactHis\Employee">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEmployee]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\FactHis\FactHis">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\FactHis\DimTraining">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimTraining]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container\DimEmployee">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\Sequence Container\DimEmployee\DimEmployee"
+          TopLeft="162.142859904134,175.670590037046" />
+        <NodeLayout
+          Size="124,41.6"
+          Id="Package\Sequence Container\DimEmployee\Employee"
+          TopLeft="175.714288706682,63.4705891254452" />
+        <EdgeLayout
+          Id="Package\Sequence Container\DimEmployee.Paths[OLE DB Source Output]"
+          TopLeft="235.528574305408,105.070589125445">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.6000009116005"
+              Start="0,0"
+              End="0,63.1000009116005">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.1000009116005" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DimEmployee\DimEmployee">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DimEmployee\Employee">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container\DimTraining">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="116.8,41.6"
+          Id="Package\Sequence Container\DimTraining\Training"
+          TopLeft="263.516483759768,66.9230769230769" />
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\Sequence Container\DimTraining\DimTraining"
+          TopLeft="252.527472649115,183.408146490884" />
+        <EdgeLayout
+          Id="Package\Sequence Container\DimTraining.Paths[OLE DB Source Output]"
+          TopLeft="321.021978204441,108.523076923077">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.8850695678074"
+              Start="0,0"
+              End="0,67.3850695678074">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.3850695678074" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DimTraining\DimTraining">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
