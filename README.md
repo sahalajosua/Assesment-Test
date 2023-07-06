@@ -1,6 +1,7 @@
 # Assessment Test
 
 This project is created for the purpose of a technical test.
+_All data used in this project are dummy._
 
 ## Task 1 - Data and Query Task (Basic)
 
